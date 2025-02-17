@@ -1,3 +1,4 @@
+
 import { Movie, Theater, User } from "@/types";
 
 export const movies: Movie[] = [
@@ -133,5 +134,24 @@ export const mockUser: User = {
   name: "John Doe",
   email: "john@example.com",
   walletBalance: 1000,
-  bookings: [],
+  bookings: [
+    {
+      id: "booking1",
+      movieId: "1",
+      theaterId: "1",
+      showTimingId: "1",
+      seats: ["A1", "A2"],
+      totalAmount: 400,
+      bookingDate: "2024-03-10T10:00:00Z",
+    },
+    {
+      id: "booking2",
+      movieId: "2",
+      theaterId: "2",
+      showTimingId: "4",
+      seats: ["B3", "B4"],
+      totalAmount: 360,
+      bookingDate: "2024-03-12T14:30:00Z",
+    }
+  ],
 };
