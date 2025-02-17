@@ -53,15 +53,50 @@ const Checkout = () => {
 
     toast({
       title: "Booking confirmed!",
-      description: "Your tickets have been bo
+      description: "Your tickets have been booked successfully!",
+    });
 
-If there's knowledge, context or custom instructions you want to include in every edit in this project, set it below.
+    navigate("/bookings");
+  };
 
-<lov-actions>
-<lov-knowledge>
-</lov-actions>
+  return (
+    <div className="max-w-2xl mx-auto animate-fadeIn">
+      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+      <div className="glass-card p-6 rounded-lg space-y-6">
+        <div className="flex items-start gap-6">
+          <div className="w-32 h-48 rounded-lg overflow-hidden">
+            <img
+              src={movie.posterUrl}
+              alt={movie.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="flex-1">
+            <h2 className="text-xl font-semibold mb-2">{movie.title}</h2>
+            <p className="text-gray-600 mb-4">
+              {theater.name} • {show.time}
+            </p>
+            <div className="space-y-2">
+              <p>
+                <span className="font-medium">Selected Seats:</span>{" "}
+                {selectedSeats.join(", ")}
+              </p>
+              <p>
+                <span className="font-medium">Amount to Pay:</span> ₹{totalAmount}
+              </p>
+              <p>
+                <span className="font-medium">Wallet Balance:</span> ₹
+                {user.walletBalance}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button onClick={handlePayment}>Confirm Payment</Button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-This project requires robust backend functionality for user authentication, payment gateway integration, movie data management, seat allocation, and potentially other features.  You'll definitely want to use the Supabase menu on the top right to connect your project to Supabase.
-<lov-actions>
-<lov-message-prompt message="Tell me more about Supabase">Learn more about Supabase</lov-message-prompt>
-</lov-actions>
+export default Checkout;
