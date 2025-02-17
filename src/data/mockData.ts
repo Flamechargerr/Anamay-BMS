@@ -1,4 +1,3 @@
-
 import { Movie, Theater, User } from "@/types";
 
 export const movies: Movie[] = [
@@ -10,7 +9,7 @@ export const movies: Movie[] = [
     duration: "2h 28min",
     language: "English",
     releaseDate: "2024-03-15",
-    genre: ["Action", "Sci-Fi"],
+    genre: ["Action", "Sci-Fi", "Thriller"],
   },
   {
     id: "2",
@@ -31,6 +30,36 @@ export const movies: Movie[] = [
     language: "English",
     releaseDate: "2024-03-20",
     genre: ["Adventure", "Drama", "Sci-Fi"],
+  },
+  {
+    id: "4",
+    title: "Dune: Part Two",
+    posterUrl: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2",
+    rating: 4.6,
+    duration: "2h 46min",
+    language: "English",
+    releaseDate: "2024-03-01",
+    genre: ["Action", "Adventure", "Sci-Fi"],
+  },
+  {
+    id: "5",
+    title: "The Matrix Resurrections",
+    posterUrl: "https://images.unsplash.com/photo-1485163819542-13adeb5e0068",
+    rating: 4.2,
+    duration: "2h 28min",
+    language: "English",
+    releaseDate: "2024-03-05",
+    genre: ["Action", "Sci-Fi"],
+  },
+  {
+    id: "6",
+    title: "Avatar: The Way of Water",
+    posterUrl: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809",
+    rating: 4.5,
+    duration: "3h 12min",
+    language: "English",
+    releaseDate: "2024-03-08",
+    genre: ["Action", "Adventure", "Fantasy"],
   },
 ];
 
