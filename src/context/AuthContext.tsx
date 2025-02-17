@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Simulating getting user from localStorage
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -24,10 +23,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setUser(mockUser);
-    localStorage.setItem("user", JSON.stringify(mockUser));
+    // In a real app, validate credentials against an API
+    if (email === "john@example.com" && password === "password") {
+      const storedUser = localStorage.getItem("user");
+      const userToSet = storedUser ? JSON.parse(storedUser) : mockUser;
+      setUser(userToSet);
+      localStorage.setItem("user", JSON.stringify(userToSet));
+    } else {
+      throw new Error("Invalid credentials");
+    }
   };
 
   const logout = () => {

@@ -11,11 +11,7 @@ import {
 import { User, LogOut } from "lucide-react";
 
 const Navbar = () => {
-  const { user, login, logout } = useAuth();
-
-  const handleLogin = () => {
-    login("john@example.com", "password");
-  };
+  const { user, logout } = useAuth();
 
   return (
     <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -48,7 +44,9 @@ const Navbar = () => {
               </DropdownMenu>
             </>
           ) : (
-            <Button onClick={handleLogin}>Login</Button>
+            <Button asChild>
+              <Link to="/login">Login</Link>
+            </Button>
           )}
         </div>
       </div>
