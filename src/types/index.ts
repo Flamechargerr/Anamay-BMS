@@ -1,4 +1,3 @@
-
 export interface Movie {
   id: string;
   title: string;
@@ -15,6 +14,8 @@ export interface Movie {
   reviews?: Review[];
   isNFTAvailable?: boolean;
   nftPrice?: number;
+  virtualScreeningUrl?: string;
+  merchandise?: Merchandise[];
 }
 
 export interface Theater {
@@ -133,4 +134,12 @@ export interface SplitPayment {
   amount: number;
   status: "pending" | "paid";
   paymentLink: string;
+}
+
+export interface Merchandise {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
 }

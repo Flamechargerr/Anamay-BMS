@@ -12,7 +12,7 @@ const Checkout = () => {
   const { user, updateWalletBalance } = useAuth();
   const { toast } = useToast();
 
-  const { movieId, theaterId, showId, selectedSeats, totalAmount } = location.state || {};
+  const { movieId, theaterId, showId, selectedSeats, totalAmount, selectedFoodItems } = location.state || {};
 
   const movie = movies.find((m) => m.id === movieId);
   const theater = theaters.find((t) => t.id === theaterId);
@@ -22,8 +22,19 @@ const Checkout = () => {
     return <div>Invalid checkout session</div>;
   }
 
+  const getFoodTotal = () => {
+    if (!selectedFoodItems) return 0;
+    return Object.entries(selectedFoodItems).reduce((total, [itemId, quantity]) => {
+      const item = theater.foodMenu?.find(f => f.id === itemId);
+      return total + (item ? item.price * quantity : 0);
+    }, 0);
+  };
+
+  const foodTotal = getFoodTotal();
+  const finalTotal = totalAmount + foodTotal;
+
   const handlePayment = () => {
-    if (user.walletBalance < totalAmount) {
+    if (user.walletBalance < finalTotal) {
       toast({
         title: "Insufficient balance",
         description: "Please add more money to your wallet",
@@ -32,8 +43,13 @@ const Checkout = () => {
       return;
     }
 
-    const newBalance = user.walletBalance - totalAmount;
+    const newBalance = user.walletBalance - finalTotal;
     updateWalletBalance(newBalance);
+
+    const foodOrders = selectedFoodItems ? Object.entries(selectedFoodItems).map(([itemId, quantity]) => ({
+      itemId,
+      quantity,
+    })) : [];
 
     const booking = {
       id: uuidv4(),
@@ -41,8 +57,10 @@ const Checkout = () => {
       theaterId,
       showTimingId: showId,
       seats: selectedSeats,
-      totalAmount,
+      totalAmount: finalTotal,
+      foodOrders,
       bookingDate: new Date().toISOString(),
+      status: "confirmed"
     };
 
     const updatedUser = {
@@ -82,8 +100,33 @@ const Checkout = () => {
                 {selectedSeats.join(", ")}
               </p>
               <p>
-                <span className="font-medium">Amount to Pay:</span> ₹{totalAmount}
+                <span className="font-medium">Ticket Amount:</span> ₹{totalAmount}
               </p>
+              {selectedFoodItems && Object.keys(selectedFoodItems).length > 0 && (
+                <div className="mt-4">
+                  <h3 className="font-medium mb-2">Food & Beverages</h3>
+                  <div className="space-y-2">
+                    {Object.entries(selectedFoodItems).map(([itemId, quantity]) => {
+                      const item = theater.foodMenu?.find(f => f.id === itemId);
+                      if (!item) return null;
+                      return (
+                        <div key={itemId} className="flex justify-between">
+                          <span>{item.name} x {quantity}</span>
+                          <span>₹{item.price * quantity}</span>
+                        </div>
+                      );
+                    })}
+                    <div className="border-t pt-2">
+                      <span className="font-medium">Food Total:</span> ₹{foodTotal}
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div className="border-t pt-2 mt-4">
+                <p className="text-lg font-semibold">
+                  <span>Final Total:</span> ₹{finalTotal}
+                </p>
+              </div>
               <p>
                 <span className="font-medium">Wallet Balance:</span> ₹
                 {user.walletBalance}

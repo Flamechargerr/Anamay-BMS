@@ -83,7 +83,7 @@ export const movies: Movie[] = [
   {
     id: "5",
     title: "Dune: Part Two",
-    posterUrl: "https://images.unsplash.com/photo-1547496614-55be5b68708f",
+    posterUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa",
     rating: 4.9,
     duration: "2h 45min",
     language: "English",
@@ -125,7 +125,7 @@ export const movies: Movie[] = [
   {
     id: "8",
     title: "KGF: Chapter 2",
-    posterUrl: "https://images.unsplash.com/photo-1594736797993-0325b58ad7da",
+    posterUrl: "https://images.unsplash.com/photo-1518834107812-67b0b7c58434",
     rating: 4.7,
     duration: "2h 58min",
     language: "Kannada",
@@ -154,7 +154,7 @@ export const movies: Movie[] = [
   {
     id: "10",
     title: "Jawan",
-    posterUrl: "https://images.unsplash.com/photo-1594736797934-5d4cd8a86451",
+    posterUrl: "https://images.unsplash.com/photo-1535868463750-c78d9543614f",
     rating: 4.5,
     duration: "2h 45min",
     language: "Hindi",
@@ -191,16 +191,25 @@ export const theaters: Theater[] = [
         price: 250,
         category: "Snacks",
         description: "Nachos with cheese sauce and salsa",
-        imageUrl: "https://images.unsplash.com/photo-1585647347483-22b66260dfff",
+        imageUrl: "https://images.unsplash.com/photo-1573499973197-69278ff9d09a",
         available: true
       },
       {
         id: "f3",
-        name: "Movie Special Combo",
-        price: 599,
-        category: "Combos",
-        description: "2 Medium Popcorn, 2 Coke, 1 Nachos",
-        imageUrl: "https://images.unsplash.com/photo-1585647347483-22b66260dfff",
+        name: "Pizza Margherita",
+        price: 299,
+        category: "Meals",
+        description: "Classic pizza with cheese and tomato sauce",
+        imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+        available: true
+      },
+      {
+        id: "f4",
+        name: "Burger Meal",
+        price: 399,
+        category: "Meals",
+        description: "Chicken burger with fries and drink",
+        imageUrl: "https://images.unsplash.com/photo-1586816001966-79b736744398",
         available: true
       }
     ],
@@ -246,41 +255,81 @@ export const theaters: Theater[] = [
   },
   {
     id: "2",
-    name: "INOX Multiplex",
-    location: "City Center Mall",
-    rating: 4.3,
-    amenities: ["Dolby Sound", "4K Projection", "Food Court"],
+    name: "INOX Gold",
+    location: "Phoenix Mall",
+    rating: 4.7,
+    amenities: ["Gold Lounge", "Recliner Seats", "Dolby Atmos"],
     hasFood: true,
     foodMenu: [
       {
-        id: "f4",
-        name: "Burger Combo",
-        price: 399,
-        category: "Combos",
-        description: "Burger, Fries, and Coke",
-        imageUrl: "https://images.unsplash.com/photo-1585647347483-22b66260dfff",
+        id: "f5",
+        name: "Gourmet Platter",
+        price: 599,
+        category: "Premium",
+        description: "Selection of premium snacks and beverages",
+        imageUrl: "https://images.unsplash.com/photo-1621275471769-e6aa344546d5",
+        available: true
+      },
+      {
+        id: "f6",
+        name: "Sushi Roll Set",
+        price: 499,
+        category: "Premium",
+        description: "Assorted sushi rolls with wasabi",
+        imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c",
         available: true
       }
     ],
     showTimings: [
       {
-        id: "4",
-        time: "11:00 AM",
+        id: "5",
+        time: "11:30 AM",
         price: {
-          standard: 180,
-          premium: 350,
+          standard: 280,
+          premium: 450,
         },
-        availability: 100,
-        isFlashSale: true,
-        flashSaleDiscount: 25
+        availability: 80
+      },
+      {
+        id: "6",
+        time: "3:30 PM",
+        price: {
+          standard: 300,
+          premium: 500,
+        },
+        availability: 60
+      }
+    ]
+  },
+  {
+    id: "3",
+    name: "INOX Express",
+    location: "Central Station",
+    rating: 4.2,
+    amenities: ["Quick Service", "Budget Friendly"],
+    hasFood: true,
+    foodMenu: [
+      {
+        id: "f7",
+        name: "Express Combo",
+        price: 199,
+        category: "Combos",
+        description: "Small popcorn and drink",
+        imageUrl: "https://images.unsplash.com/photo-1589365252845-092198ba5534",
+        available: true
       }
     ],
-    seatMap: {
-      rows: 8,
-      columns: 10,
-      premium: ["A", "B"],
-      standard: ["C", "D", "E", "F", "G", "H"]
-    }
+    showTimings: [
+      {
+        id: "7",
+        time: "10:00 AM",
+        price: {
+          standard: 150,
+          premium: 250,
+        },
+        availability: 100
+      }
+    ]
   }
 ];
 
