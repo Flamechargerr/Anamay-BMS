@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { movies, theaters } from "@/data/mockData";
@@ -15,7 +14,7 @@ import {
   Ticket,
   Coffee,
   ShoppingBag,
-  View3d,
+  View,
   Trophy
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -193,7 +192,7 @@ const MovieDetail = () => {
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm" className="gap-2">
-                        <View3d className="w-4 h-4" />
+                        <View className="w-4 h-4" />
                         AR Seat Preview
                       </Button>
                     </DialogTrigger>
