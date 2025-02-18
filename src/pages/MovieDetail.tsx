@@ -83,11 +83,36 @@ const MovieDetail = () => {
                       key={show.id}
                       variant="outline"
                       onClick={() => handleShowSelect(theater.id, show.id)}
+                      className="relative"
                     >
                       {show.time}
+                      {show.isFlashSale && (
+                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                          {show.flashSaleDiscount}% off
+                        </span>
+                      )}
                     </Button>
                   ))}
                 </div>
+                {theater.hasFood && (
+                  <div className="pt-4 border-t">
+                    <h4 className="font-medium mb-2">Pre-order Food & Beverages</h4>
+                    <div className="flex gap-4 overflow-x-auto pb-2">
+                      {theater.foodMenu?.map((item) => (
+                        <div key={item.id} className="flex-shrink-0 w-48 bg-white rounded-lg p-3 shadow">
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            className="w-full h-32 object-cover rounded-lg mb-2"
+                          />
+                          <h5 className="font-medium">{item.name}</h5>
+                          <p className="text-sm text-gray-600">{item.description}</p>
+                          <p className="font-medium mt-2">₹{item.price}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
