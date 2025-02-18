@@ -1,4 +1,3 @@
-
 import { Movie, Theater, User } from "@/types";
 
 export const movies: Movie[] = [
@@ -12,11 +11,28 @@ export const movies: Movie[] = [
     releaseDate: "2024-03-15",
     genre: ["Action", "Sci-Fi", "Thriller"],
     ageRating: "U/A",
-    description: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
-    cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
+    description: "Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, stealing valuable secrets from deep within the subconscious during the dream state. Cobb's rare ability has made him a coveted player in this treacherous new world of corporate espionage, but it has also made him an international fugitive and cost him everything he loves.",
+    cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page", "Tom Hardy", "Ken Watanabe"],
     director: "Christopher Nolan",
     isNFTAvailable: true,
-    nftPrice: 999
+    nftPrice: 999,
+    virtualScreeningUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1",
+    merchandise: [
+      {
+        id: "m1",
+        name: "Inception Totem Replica",
+        price: 1999,
+        description: "Perfect replica of the iconic totem",
+        imageUrl: "https://images.unsplash.com/photo-1589999562311-56254d5d6697"
+      },
+      {
+        id: "m2",
+        name: "Movie Poster",
+        price: 599,
+        description: "Limited edition collector's poster",
+        imageUrl: "https://images.unsplash.com/photo-1615416387835-1466e5590181"
+      }
+    ]
   },
   {
     id: "2",

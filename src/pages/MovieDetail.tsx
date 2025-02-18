@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { movies, theaters } from "@/data/mockData";
@@ -38,7 +39,7 @@ const MovieDetail = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toast } = useToast();
-  const [selectedTheater, setSelectedTheater] = useState<string | null>(null);
+  const [selectedFoodItems, setSelectedFoodItems] = useState<{[key: string]: number}>({});
 
   const movie = movies.find((m) => m.id === id);
 
@@ -55,20 +56,20 @@ const MovieDetail = () => {
       });
       return;
     }
-    navigate(`/select-seats/${movie.id}/${theaterId}/${showId}`);
-  };
-
-  const handleGroupBooking = () => {
-    toast({
-      title: "Group Booking Initiated",
-      description: "Share the link with your friends to book together!",
+    // Include selected food items in navigation
+    navigate(`/select-seats/${movie.id}/${theaterId}/${showId}`, {
+      state: { selectedFoodItems }
     });
   };
 
-  const handleVirtualScreening = () => {
+  const addFoodItem = (itemId: string) => {
+    setSelectedFoodItems(prev => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + 1
+    }));
     toast({
-      title: "Virtual Screening Access",
-      description: "You'll receive the link 30 minutes before the show.",
+      title: "Item added to cart",
+      description: "You can modify quantities at checkout",
     });
   };
 
@@ -90,8 +91,8 @@ const MovieDetail = () => {
             </div>
           )}
         </div>
-        <div className="md:col-span-2">
-          <div className="flex justify-between items-start mb-4">
+        <div className="md:col-span-2 space-y-6">
+          <div className="flex justify-between items-start">
             <h1 className="text-4xl font-bold">{movie.title}</h1>
             {user?.rewards && (
               <TooltipProvider>
@@ -110,7 +111,7 @@ const MovieDetail = () => {
             )}
           </div>
 
-          <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
               <span>{movie.rating}/5</span>
@@ -125,7 +126,7 @@ const MovieDetail = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2">
             {movie.genre.map((g) => (
               <span
                 key={g}
@@ -136,15 +137,62 @@ const MovieDetail = () => {
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-3 mb-8">
-            <Button onClick={handleGroupBooking} variant="outline" className="gap-2">
-              <Users className="w-4 h-4" />
-              Group Booking
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <Video className="w-4 h-4" />
-              Virtual Screening
-            </Button>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">About the Movie</h2>
+            <p className="text-gray-600 leading-relaxed">{movie.description}</p>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <h3 className="font-medium mb-2">Director</h3>
+                <p>{movie.director}</p>
+              </div>
+              <div>
+                <h3 className="font-medium mb-2">Language</h3>
+                <p>{movie.language}</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-medium mb-2">Cast</h3>
+              <div className="flex flex-wrap gap-2">
+                {movie.cast?.map((actor) => (
+                  <span key={actor} className="px-3 py-1 bg-primary/5 rounded-full text-sm">
+                    {actor}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="gap-2">
+                  <Video className="w-4 h-4" />
+                  Virtual Screening
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl">
+                <DialogHeader>
+                  <DialogTitle>Virtual Screening Experience</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="aspect-video rounded-lg overflow-hidden">
+                    <img 
+                      src={movie.virtualScreeningUrl} 
+                      alt="Virtual Screening"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Experience the movie in stunning virtual reality from the comfort of your home.
+                    Includes access to exclusive behind-the-scenes content and director's commentary.
+                  </p>
+                  <Button className="w-full">Book Virtual Screening (₹299)</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" className="gap-2">
@@ -157,11 +205,17 @@ const MovieDetail = () => {
                   <DialogTitle>Official Movie Merchandise</DialogTitle>
                 </DialogHeader>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                  {[1, 2, 3, 4, 5, 6].map((item) => (
-                    <div key={item} className="bg-card p-4 rounded-lg">
-                      <div className="aspect-square bg-gray-100 rounded-lg mb-2"></div>
-                      <h4 className="font-medium">Collector's T-Shirt</h4>
-                      <p className="text-sm text-gray-600">₹599</p>
+                  {movie.merchandise?.map((item) => (
+                    <div key={item.id} className="bg-card p-4 rounded-lg">
+                      <div className="aspect-square rounded-lg mb-2 overflow-hidden">
+                        <img 
+                          src={item.imageUrl} 
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h4 className="font-medium">{item.name}</h4>
+                      <p className="text-sm text-gray-600">₹{item.price}</p>
                       <Button size="sm" className="w-full mt-2">Add to Cart</Button>
                     </div>
                   ))}
@@ -170,7 +224,7 @@ const MovieDetail = () => {
             </Dialog>
           </div>
 
-          <h2 className="text-2xl font-semibold mb-4">Select Show</h2>
+          <h2 className="text-2xl font-semibold">Select Show</h2>
           <div className="space-y-6">
             {theaters.map((theater) => (
               <div
@@ -200,8 +254,26 @@ const MovieDetail = () => {
                       <DialogHeader>
                         <DialogTitle>AR Seat Preview</DialogTitle>
                       </DialogHeader>
-                      <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                        <p className="text-gray-500">AR View Coming Soon</p>
+                      <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                        <model-viewer
+                          src="/theater-model.glb"
+                          ar
+                          ar-modes="webxr scene-viewer quick-look"
+                          camera-controls
+                          environment-image="neutral"
+                          poster="poster.webp"
+                          seamless-poster
+                          shadow-intensity="1"
+                          auto-rotate
+                          className="w-full h-full"
+                        >
+                          <Button
+                            slot="ar-button"
+                            className="absolute bottom-4 left-1/2 -translate-x-1/2"
+                          >
+                            View in AR
+                          </Button>
+                        </model-viewer>
                       </div>
                     </DialogContent>
                   </Dialog>
@@ -253,7 +325,13 @@ const MovieDetail = () => {
                           <p className="text-sm text-gray-600">{item.description}</p>
                           <div className="flex justify-between items-center mt-2">
                             <p className="font-medium">₹{item.price}</p>
-                            <Button size="sm" variant="outline">Add</Button>
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => addFoodItem(item.id)}
+                            >
+                              Add {selectedFoodItems[item.id] ? `(${selectedFoodItems[item.id]})` : ''}
+                            </Button>
                           </div>
                         </div>
                       ))}
