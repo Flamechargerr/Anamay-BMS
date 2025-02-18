@@ -3,7 +3,7 @@ BMS+ is a next-gen ticket booking platform designed for movies, concerts, and li
 
 Whether you're booking a movie night, live concert, or sports event, BMS+ provides an interactive, smart, and user-friendly experience.
 
-🌐 Live Demo: Your Project URL
+🌐 Live Demo: https://lovable.dev/projects/afa8bc18-fed1-42cf-879c-fda121a23f80
 
 ✨ Key Features
 🔥 Next-Gen Booking Experience
