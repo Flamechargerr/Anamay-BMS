@@ -16,6 +16,20 @@ export interface Movie {
   nftPrice?: number;
   virtualScreeningUrl?: string;
   merchandise?: Merchandise[];
+  weatherSensitive?: boolean;
+  currentWeather?: WeatherInfo;
+  demandMultiplier?: number;
+  flashSale?: {
+    active: boolean;
+    discount: number;
+    endsAt: string;
+  };
+}
+
+export interface WeatherInfo {
+  condition: "sunny" | "rainy" | "cloudy";
+  temperature: number;
+  forecast: string;
 }
 
 export interface Theater {
@@ -34,6 +48,7 @@ export interface Theater {
     premium: string[];
     standard: string[];
   };
+  virtualTourUrl?: string;
 }
 
 export interface ShowTiming {
@@ -46,6 +61,29 @@ export interface ShowTiming {
   availability: number;
   isFlashSale?: boolean;
   flashSaleDiscount?: number;
+  baseDemandMultiplier?: number;
+}
+
+export interface FoodItem {
+  id: string;
+  name: string;
+  price: number;
+  category: "Snacks" | "Beverages" | "Combos" | "Premium" | "Meals";
+  description: string;
+  imageUrl: string;
+  available: boolean;
+  preparationTime?: number;
+}
+
+export interface Merchandise {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  available?: boolean;
+  category?: string;
+  sizes?: string[];
 }
 
 export interface User {
@@ -58,13 +96,28 @@ export interface User {
     genres: string[];
     languages: string[];
     theaters: string[];
+    darkMode?: boolean;
+    notificationPreferences?: {
+      weatherAlerts: boolean;
+      flashSales: boolean;
+      friendActivity: boolean;
+    };
   };
   rewards?: {
     points: number;
     tier: "Bronze" | "Silver" | "Gold" | "Platinum";
+    benefits: string[];
   };
   nftCollection?: NFTTicket[];
-  darkMode?: boolean;
+  friends?: string[];
+  savedPaymentMethods?: PaymentMethod[];
+}
+
+export interface PaymentMethod {
+  id: string;
+  type: "card" | "upi" | "wallet";
+  label: string;
+  isDefault?: boolean;
 }
 
 export interface Booking {
@@ -112,16 +165,6 @@ export interface NFTTicket {
   transferable: boolean;
 }
 
-export interface FoodItem {
-  id: string;
-  name: string;
-  price: number;
-  category: "Snacks" | "Beverages" | "Combos";
-  description: string;
-  imageUrl: string;
-  available: boolean;
-}
-
 export interface FoodOrder {
   id: string;
   items: { itemId: string; quantity: number }[];
@@ -134,12 +177,4 @@ export interface SplitPayment {
   amount: number;
   status: "pending" | "paid";
   paymentLink: string;
-}
-
-export interface Merchandise {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
 }

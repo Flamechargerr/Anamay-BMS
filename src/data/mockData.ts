@@ -1,4 +1,4 @@
-import { Movie, Theater, User } from "@/types";
+import { Movie, Theater, User, FoodItem } from "@/types";
 
 export const movies: Movie[] = [
   {
@@ -11,28 +11,29 @@ export const movies: Movie[] = [
     releaseDate: "2024-03-15",
     genre: ["Action", "Sci-Fi", "Thriller"],
     ageRating: "U/A",
-    description: "Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, stealing valuable secrets from deep within the subconscious during the dream state. Cobb's rare ability has made him a coveted player in this treacherous new world of corporate espionage, but it has also made him an international fugitive and cost him everything he loves.",
-    cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page", "Tom Hardy", "Ken Watanabe"],
+    description: "Dom Cobb is a skilled thief, the absolute best in the dangerous art of extraction, stealing valuable secrets from deep within the subconscious during the dream state.",
+    cast: ["Leonardo DiCaprio", "Joseph Gordon-Levitt", "Ellen Page"],
     director: "Christopher Nolan",
     isNFTAvailable: true,
     nftPrice: 999,
-    virtualScreeningUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1",
+    virtualScreeningUrl: "https://example.com/virtual-tour/inception",
     merchandise: [
       {
         id: "m1",
         name: "Inception Totem Replica",
         price: 1999,
         description: "Perfect replica of the iconic totem",
-        imageUrl: "https://images.unsplash.com/photo-1589999562311-56254d5d6697"
-      },
-      {
-        id: "m2",
-        name: "Movie Poster",
-        price: 599,
-        description: "Limited edition collector's poster",
-        imageUrl: "https://images.unsplash.com/photo-1615416387835-1466e5590181"
+        imageUrl: "https://images.unsplash.com/photo-1589999562311-56254d5d6697",
+        available: true,
+        category: "Collectibles"
       }
-    ]
+    ],
+    demandMultiplier: 1.2,
+    flashSale: {
+      active: true,
+      discount: 20,
+      endsAt: "2024-03-16T23:59:59Z"
+    }
   },
   {
     id: "2",
@@ -167,6 +168,49 @@ export const movies: Movie[] = [
   }
 ];
 
+export const foodMenu: FoodItem[] = [
+  {
+    id: "f1",
+    name: "Classic Popcorn Combo",
+    price: 299,
+    category: "Combos",
+    description: "Large popcorn with 2 soft drinks",
+    imageUrl: "https://images.unsplash.com/photo-1585647347483-22b66260dfff",
+    available: true,
+    preparationTime: 5
+  },
+  {
+    id: "f2",
+    name: "Nachos Supreme",
+    price: 249,
+    category: "Snacks",
+    description: "Loaded nachos with cheese sauce",
+    imageUrl: "https://images.unsplash.com/photo-1573499973197-69278ff9d09a",
+    available: true,
+    preparationTime: 8
+  },
+  {
+    id: "f3",
+    name: "Gourmet Pizza",
+    price: 399,
+    category: "Premium",
+    description: "Fresh-baked personal pizza",
+    imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+    available: true,
+    preparationTime: 15
+  },
+  {
+    id: "f4",
+    name: "Premium Burger Meal",
+    price: 449,
+    category: "Premium",
+    description: "Gourmet burger with fries",
+    imageUrl: "https://images.unsplash.com/photo-1586816001966-79b736744398",
+    available: true,
+    preparationTime: 12
+  }
+];
+
 export const theaters: Theater[] = [
   {
     id: "1",
@@ -175,47 +219,11 @@ export const theaters: Theater[] = [
     rating: 4.5,
     amenities: ["IMAX", "Dolby Atmos", "4K Projection", "Recliner Seats"],
     hasFood: true,
-    foodMenu: [
-      {
-        id: "f1",
-        name: "Popcorn Combo",
-        price: 350,
-        category: "Combos",
-        description: "Large popcorn with 2 soft drinks",
-        imageUrl: "https://images.unsplash.com/photo-1585647347483-22b66260dfff",
-        available: true
-      },
-      {
-        id: "f2",
-        name: "Nachos Grande",
-        price: 250,
-        category: "Snacks",
-        description: "Nachos with cheese sauce and salsa",
-        imageUrl: "https://images.unsplash.com/photo-1573499973197-69278ff9d09a",
-        available: true
-      },
-      {
-        id: "f3",
-        name: "Pizza Margherita",
-        price: 299,
-        category: "Meals",
-        description: "Classic pizza with cheese and tomato sauce",
-        imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591",
-        available: true
-      },
-      {
-        id: "f4",
-        name: "Burger Meal",
-        price: 399,
-        category: "Meals",
-        description: "Chicken burger with fries and drink",
-        imageUrl: "https://images.unsplash.com/photo-1586816001966-79b736744398",
-        available: true
-      }
-    ],
+    foodMenu,
+    virtualTourUrl: "https://example.com/virtual-tour/pvr-imax",
     showTimings: [
       {
-        id: "1",
+        id: "st1",
         time: "10:00 AM",
         price: {
           standard: 200,
@@ -223,35 +231,10 @@ export const theaters: Theater[] = [
         },
         availability: 120,
         isFlashSale: true,
-        flashSaleDiscount: 20
-      },
-      {
-        id: "2",
-        time: "1:30 PM",
-        price: {
-          standard: 200,
-          premium: 400,
-        },
-        availability: 85
-      },
-      {
-        id: "3",
-        time: "6:30 PM",
-        price: {
-          standard: 250,
-          premium: 450,
-        },
-        availability: 45,
-        isFlashSale: true,
-        flashSaleDiscount: 15
+        flashSaleDiscount: 20,
+        baseDemandMultiplier: 1.0
       }
-    ],
-    seatMap: {
-      rows: 10,
-      columns: 12,
-      premium: ["A", "B", "C"],
-      standard: ["D", "E", "F", "G", "H", "I", "J"]
-    }
+    ]
   },
   {
     id: "2",
@@ -334,62 +317,39 @@ export const theaters: Theater[] = [
 ];
 
 export const mockUser: User = {
-  id: "1",
+  id: "u1",
   name: "John Doe",
   email: "john@example.com",
-  walletBalance: 1000,
+  walletBalance: 5000,
   preferences: {
     genres: ["Action", "Sci-Fi"],
     languages: ["English", "Hindi"],
-    theaters: ["1"]
+    theaters: ["1"],
+    darkMode: false,
+    notificationPreferences: {
+      weatherAlerts: true,
+      flashSales: true,
+      friendActivity: true
+    }
   },
   rewards: {
     points: 1500,
-    tier: "Gold"
+    tier: "Gold",
+    benefits: [
+      "Priority Booking",
+      "No Convenience Fee",
+      "Free Food Upgrades"
+    ]
   },
-  darkMode: false,
-  bookings: [
+  bookings: [],
+  nftCollection: [],
+  friends: ["u2", "u3"],
+  savedPaymentMethods: [
     {
-      id: "booking1",
-      movieId: "1",
-      theaterId: "1",
-      showTimingId: "1",
-      seats: ["A1", "A2"],
-      totalAmount: 400,
-      bookingDate: "2024-03-10T10:00:00Z",
-      qrCode: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-      status: "confirmed",
-      foodOrders: [
-        {
-          id: "fo1",
-          items: [{ itemId: "f1", quantity: 1 }],
-          totalAmount: 350,
-          status: "confirmed"
-        }
-      ]
-    },
-    {
-      id: "booking2",
-      movieId: "2",
-      theaterId: "2",
-      showTimingId: "4",
-      seats: ["B3", "B4"],
-      totalAmount: 360,
-      bookingDate: "2024-03-12T14:30:00Z",
-      qrCode: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
-      status: "confirmed",
-      isNFT: true
-    }
-  ],
-  nftCollection: [
-    {
-      id: "nft1",
-      bookingId: "booking2",
-      movieId: "2",
-      tokenId: "0x123",
-      imageUrl: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb",
-      rarity: "Rare",
-      transferable: true
+      id: "pm1",
+      type: "card",
+      label: "HDFC Credit Card",
+      isDefault: true
     }
   ]
 };

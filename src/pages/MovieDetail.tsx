@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { movies, theaters } from "@/data/mockData";
@@ -33,6 +32,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useEffect, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -56,7 +58,6 @@ const MovieDetail = () => {
       });
       return;
     }
-    // Include selected food items in navigation
     navigate(`/select-seats/${movie.id}/${theaterId}/${showId}`, {
       state: { selectedFoodItems }
     });
@@ -250,30 +251,20 @@ const MovieDetail = () => {
                         AR Seat Preview
                       </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="max-w-4xl">
                       <DialogHeader>
                         <DialogTitle>AR Seat Preview</DialogTitle>
                       </DialogHeader>
                       <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                        <model-viewer
-                          src="/theater-model.glb"
-                          ar
-                          ar-modes="webxr scene-viewer quick-look"
-                          camera-controls
-                          environment-image="neutral"
-                          poster="poster.webp"
-                          seamless-poster
-                          shadow-intensity="1"
-                          auto-rotate
-                          className="w-full h-full"
-                        >
-                          <Button
-                            slot="ar-button"
-                            className="absolute bottom-4 left-1/2 -translate-x-1/2"
-                          >
-                            View in AR
-                          </Button>
-                        </model-viewer>
+                        <Canvas>
+                          <OrbitControls />
+                          <ambientLight intensity={0.5} />
+                          <pointLight position={[10, 10, 10]} />
+                          <mesh>
+                            <boxGeometry args={[1, 1, 1]} />
+                            <meshStandardMaterial color="orange" />
+                          </mesh>
+                        </Canvas>
                       </div>
                     </DialogContent>
                   </Dialog>
