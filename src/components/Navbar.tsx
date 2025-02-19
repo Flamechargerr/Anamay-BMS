@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <nav className="border-b">
@@ -30,7 +30,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            {isAuthenticated ? (
+            {user ? (
               <>
                 <Link to="/bookings">
                   <Button variant="ghost">My Bookings</Button>
