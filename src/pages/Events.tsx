@@ -9,9 +9,9 @@ import {
   Filter,
   Music,
   Mic,
-  Theatre,
+  Theater,
   Trophy,
-  Festival
+  PartyPopper
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -41,11 +41,11 @@ const getEventIcon = (type: string) => {
     case "comedy":
       return <Mic className="w-4 h-4" />;
     case "theatre":
-      return <Theatre className="w-4 h-4" />;
+      return <Theater className="w-4 h-4" />;
     case "sports":
       return <Trophy className="w-4 h-4" />;
     case "festival":
-      return <Festival className="w-4 h-4" />;
+      return <PartyPopper className="w-4 h-4" />;
     default:
       return <Music className="w-4 h-4" />;
   }
