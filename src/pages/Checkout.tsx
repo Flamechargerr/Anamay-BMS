@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import { movies, theaters } from "@/data/mockData";
 import { v4 as uuidv4 } from "uuid";
+import { FoodItem } from "@/types";
 
 const Checkout = () => {
   const location = useLocation();
@@ -22,16 +23,17 @@ const Checkout = () => {
     return <div>Invalid checkout session</div>;
   }
 
-  const getFoodTotal = () => {
-    if (!selectedFoodItems) return 0;
+  const getFoodTotal = (): number => {
+    if (!selectedFoodItems || !theater.foodMenu) return 0;
     return Object.entries(selectedFoodItems).reduce((total, [itemId, quantity]) => {
-      const item = theater.foodMenu?.find(f => f.id === itemId);
-      return total + (item ? item.price * quantity : 0);
+      const item = theater.foodMenu?.find((f: FoodItem) => f.id === itemId);
+      if (!item) return total;
+      return total + (item.price * (quantity as number));
     }, 0);
   };
 
   const foodTotal = getFoodTotal();
-  const finalTotal = totalAmount + foodTotal;
+  const finalTotal = Number(totalAmount) + foodTotal;
 
   const handlePayment = () => {
     if (user.walletBalance < finalTotal) {
@@ -48,7 +50,7 @@ const Checkout = () => {
 
     const foodOrders = selectedFoodItems ? Object.entries(selectedFoodItems).map(([itemId, quantity]) => ({
       itemId,
-      quantity,
+      quantity: Number(quantity),
     })) : [];
 
     const booking = {
@@ -60,7 +62,7 @@ const Checkout = () => {
       totalAmount: finalTotal,
       foodOrders,
       bookingDate: new Date().toISOString(),
-      status: "confirmed"
+      status: "confirmed" as const
     };
 
     const updatedUser = {
@@ -111,8 +113,8 @@ const Checkout = () => {
                       if (!item) return null;
                       return (
                         <div key={itemId} className="flex justify-between">
-                          <span>{item.name} x {quantity}</span>
-                          <span>₹{item.price * quantity}</span>
+                          <span>{item.name} x {String(quantity)}</span>
+                          <span>₹{item.price * Number(quantity)}</span>
                         </div>
                       );
                     })}
