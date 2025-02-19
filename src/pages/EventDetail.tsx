@@ -1,5 +1,5 @@
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { events } from "@/data/mockEvents";
 import { 
   Calendar, 
@@ -12,9 +12,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 const EventDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const event = events.find(e => e.id === id);
 
   if (!event) {
@@ -24,6 +27,17 @@ const EventDetail = () => {
       </div>
     );
   }
+
+  const handleBooking = () => {
+    // In a real app, this would navigate to a checkout page
+    // For now, we'll just show a toast and redirect to /bookings
+    toast({
+      title: "Booking Initiated",
+      description: `Booking request for ${event.title} has been received.`,
+      duration: 3000,
+    });
+    navigate("/bookings");
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 animate-fadeIn">
@@ -87,7 +101,7 @@ const EventDetail = () => {
             )}
           </div>
 
-          <Button className="w-full gap-2">
+          <Button onClick={handleBooking} className="w-full gap-2">
             <Ticket className="w-4 h-4" />
             Book Tickets
           </Button>
