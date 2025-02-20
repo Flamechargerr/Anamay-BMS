@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { movies } from "@/data/mockData";
@@ -39,7 +38,7 @@ const Home = () => {
   return (
     <div className="animate-fadeIn">
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-background p-6 rounded-lg mb-8">
-        <h1 className="text-3xl font-bold mb-2">Book Movie Tickets</h1>
+        <h1 className="text-3xl font-bold mb-2">Anamay's BMS - Book Movie Tickets</h1>
         <p className="text-gray-600">Watch the latest movies in your favorite theaters</p>
       </div>
       
