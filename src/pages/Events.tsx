@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { events } from "@/data/mockEvents";
@@ -72,7 +73,7 @@ const Events = () => {
   return (
     <div className="animate-fadeIn">
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-background p-6 rounded-lg mb-8">
-        <h1 className="text-3xl font-bold mb-2">Anamay's BMS - Events</h1>
+        <h1 className="text-3xl font-bold mb-2">Discover Events</h1>
         <p className="text-gray-600">Find the best events happening in your city</p>
       </div>
 

@@ -141,7 +141,6 @@ export const events: Event[] = [
       amenities: ["Rides", "Games", "Food Courts", "Rest Areas"]
     },
     description: "Experience the thrill of over 50 rides, games, and attractions at the Wonderland Festival. Fun for the whole family!",
-    performers: [], // Adding empty performers array as it's required by the type
     price: {
       min: 999,
       max: 1999
